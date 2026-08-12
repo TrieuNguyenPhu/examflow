@@ -8,7 +8,7 @@
         <thead><tr><th>Exam</th><th>Submitted</th><th>Score</th><th>Percentage</th><th></th></tr></thead>
         <tbody>
             <tr th:if="${#lists.isEmpty(pastResults)}"><td colspan="5"><div class="empty-state"><strong>No completed exams</strong>Return to your dashboard when an exam becomes available.</div></td></tr>
-            <tr th:each="result : ${pastResults}"><td class="list-title" th:text="${result.exam.title}">Exam</td><td th:text="${#temporals.format(result.submissionTime, 'MMM d, yyyy HH:mm')}">Date</td><td th:text="|${result.scoreAchieved}/${result.totalMarks}|">0/0</td><td><span class="status" th:text="${result.totalMarks == 0 ? '0%' : #numbers.formatDecimal(result.scoreAchieved * 100.0 / result.totalMarks, 1, 0) + '%'}">0%</span></td><td><a th:href="@{/student/review/{id}(id=${result.id})}">Review answers</a></td></tr>
+            <tr th:each="result : ${pastResults}"><td data-label="Exam" class="list-title" th:text="${result.exam.title}">Exam</td><td data-label="Submitted" th:text="${#temporals.format(result.submissionTime, 'MMM d, yyyy HH:mm')}">Date</td><td data-label="Score" th:text="|${result.scoreAchieved}/${result.totalMarks}|">0/0</td><td data-label="Percentage"><span class="status" th:classappend="${result.totalMarks > 0 and result.scoreAchieved * 100.0 / result.totalMarks >= 70} ? ' status-pass' : ' status-review'" th:text="${result.totalMarks == 0 ? '0%' : #numbers.formatDecimal(result.scoreAchieved * 100.0 / result.totalMarks, 1, 0) + '%'}">0%</span></td><td data-label="Action"><a th:href="@{/student/review/{id}(id=${result.id})}">Review answers</a></td></tr>
         </tbody>
     </table></div></section>
 </main></body></html>

@@ -29,5 +29,6 @@ Thumbs.db
 !.env.example
 *.log
 
-# Impeccable working artifacts
-.impeccable/
+# Impeccable design system sidecar
+.impeccable/*
+!.impeccable/design.json

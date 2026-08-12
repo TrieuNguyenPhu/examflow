@@ -1,15 +1,24 @@
 package io.github.trieunguyenphu.examflow;
 
+import io.github.trieunguyenphu.examflow.model.Exam;
+import io.github.trieunguyenphu.examflow.model.Question;
+import io.github.trieunguyenphu.examflow.model.User;
+import io.github.trieunguyenphu.examflow.repository.ExamRepository;
+import io.github.trieunguyenphu.examflow.repository.QuestionRepository;
+import io.github.trieunguyenphu.examflow.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -18,6 +27,12 @@ class ExamFlowApplicationTests {
 
     @Autowired
     private MockMvc mvc;
+    @Autowired
+    private ExamRepository exams;
+    @Autowired
+    private QuestionRepository questions;
+    @Autowired
+    private UserRepository users;
 
     @Test
     void publicPagesRender() throws Exception {
@@ -40,6 +55,60 @@ class ExamFlowApplicationTests {
     @Test
     void postRequestsRequireCsrf() throws Exception {
         mvc.perform(post("/register")).andExpect(status().isForbidden());
-        mvc.perform(post("/register").with(csrf())).andExpect(status().isOk());
+        mvc.perform(post("/register").with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("aria-invalid=\"true\"")))
+                .andExpect(content().string(containsString("id=\"fullName-error\"")));
+    }
+
+    @Test
+    @Transactional
+    void authenticatedWorkspacesAndExamDeadlineRender() throws Exception {
+        Exam exam = new Exam();
+        exam.setTitle("Rendering check");
+        exam.setDescription("Exercises all authenticated templates.");
+        exam.setDurationInMinutes(30);
+        exam = exams.save(exam);
+
+        Question question = new Question();
+        question.setExam(exam);
+        question.setText("Which option is correct?");
+        question.setOption1("First");
+        question.setOption2("Second");
+        question.setOption3("Third");
+        question.setOption4("Fourth");
+        question.setCorrectAnswer(1);
+        question.setMarks(1);
+        question = questions.save(question);
+        exam.getQuestions().add(question);
+
+        User student = new User();
+        student.setUsername("rendering.student@example.com");
+        student.setPassword("not-used-in-this-test");
+        student.setFullName("Rendering Student");
+        student.setMobileNumber("");
+        student.setRole(User.ROLE_STUDENT);
+        users.save(student);
+
+        var admin = user("rendering.admin@example.com").roles("ADMIN");
+        mvc.perform(get("/admin/dashboard").with(admin)).andExpect(status().isOk());
+        mvc.perform(get("/admin/manage-exams").with(admin))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("aria-current=\"page\"")));
+        mvc.perform(get("/admin/exam/add").with(admin)).andExpect(status().isOk());
+        mvc.perform(get("/admin/exam/edit/{id}", exam.getId()).with(admin)).andExpect(status().isOk());
+        mvc.perform(get("/admin/exam/manage-questions/{id}", exam.getId()).with(admin)).andExpect(status().isOk());
+        mvc.perform(get("/admin/exam/{id}/question/add", exam.getId()).with(admin)).andExpect(status().isOk());
+        mvc.perform(get("/admin/question/edit/{id}", question.getId()).with(admin)).andExpect(status().isOk());
+        mvc.perform(get("/admin/results/{id}", exam.getId()).with(admin)).andExpect(status().isOk());
+        mvc.perform(get("/admin/students").with(admin)).andExpect(status().isOk());
+
+        var studentAuth = user(student.getUsername()).roles("STUDENT");
+        mvc.perform(get("/student/dashboard").with(studentAuth)).andExpect(status().isOk());
+        mvc.perform(get("/student/my-results").with(studentAuth)).andExpect(status().isOk());
+        mvc.perform(get("/student/profile").with(studentAuth)).andExpect(status().isOk());
+        mvc.perform(get("/exam/{id}", exam.getId()).with(studentAuth))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("data-deadline=\"")));
     }
 }

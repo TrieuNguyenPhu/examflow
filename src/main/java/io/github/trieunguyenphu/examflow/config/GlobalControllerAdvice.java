@@ -2,6 +2,7 @@ package io.github.trieunguyenphu.examflow.config;
 
 import io.github.trieunguyenphu.examflow.model.User;
 import io.github.trieunguyenphu.examflow.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,7 +18,13 @@ public class GlobalControllerAdvice {
 
     @ModelAttribute("currentUser")
     public User currentUser(Authentication authentication) {
-        if (authentication == null || !authentication.isAuthenticated()) return null;
+        if (authentication == null || !authentication.isAuthenticated()
+                || "anonymousUser".equals(authentication.getPrincipal())) return null;
         return users.findByUsernameIgnoreCase(authentication.getName()).orElse(null);
+    }
+
+    @ModelAttribute("currentPath")
+    public String currentPath(HttpServletRequest request) {
+        return request.getRequestURI();
     }
 }

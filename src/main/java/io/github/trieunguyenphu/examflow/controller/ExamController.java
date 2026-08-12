@@ -64,9 +64,11 @@ public class ExamController {
         if (session.getAttribute(STARTED_AT_PREFIX + examId) == null) {
             session.setAttribute(STARTED_AT_PREFIX + examId, Instant.now());
         }
+        Instant startedAt = (Instant) session.getAttribute(STARTED_AT_PREFIX + examId);
         model.addAttribute("student", student);
         model.addAttribute("exam", exam);
         model.addAttribute("questions", exam.getQuestions());
+        model.addAttribute("deadlineEpochMillis", startedAt.plus(Duration.ofMinutes(exam.getDurationInMinutes())).toEpochMilli());
         return "student/exam_page";
     }
 

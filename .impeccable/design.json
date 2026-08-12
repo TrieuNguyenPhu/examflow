@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-12T18:51:30.5612108Z",
+  "title": "Design System: ExamFlow",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Deep Ink",
+        "canonical": "#172033",
+        "tonalRamp": ["oklch(15% 0.039 264.4)", "oklch(26% 0.039 264.4)", "oklch(38% 0.039 264.4)", "oklch(50% 0.039 264.4)", "oklch(62% 0.039 264.4)", "oklch(74% 0.039 264.4)", "oklch(86% 0.039 264.4)", "oklch(95% 0.039 264.4)"]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Slate Copy",
+        "canonical": "#5d687a",
+        "tonalRamp": ["oklch(15% 0.032 260.3)", "oklch(26% 0.032 260.3)", "oklch(38% 0.032 260.3)", "oklch(50% 0.032 260.3)", "oklch(62% 0.032 260.3)", "oklch(74% 0.032 260.3)", "oklch(86% 0.032 260.3)", "oklch(95% 0.032 260.3)"]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "#ffffff",
+        "tonalRamp": ["oklch(15% 0 0)", "oklch(26% 0 0)", "oklch(38% 0 0)", "oklch(50% 0 0)", "oklch(62% 0 0)", "oklch(74% 0 0)", "oklch(86% 0 0)", "oklch(95% 0 0)"]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Cool Canvas",
+        "canonical": "#f4f6f9",
+        "tonalRamp": ["oklch(15% 0.005 258.3)", "oklch(26% 0.005 258.3)", "oklch(38% 0.005 258.3)", "oklch(50% 0.005 258.3)", "oklch(62% 0.005 258.3)", "oklch(74% 0.005 258.3)", "oklch(86% 0.005 258.3)", "oklch(95% 0.005 258.3)"]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Fine Rule",
+        "canonical": "#d9dee8",
+        "tonalRamp": ["oklch(15% 0.015 264.5)", "oklch(26% 0.015 264.5)", "oklch(38% 0.015 264.5)", "oklch(50% 0.015 264.5)", "oklch(62% 0.015 264.5)", "oklch(74% 0.015 264.5)", "oklch(86% 0.015 264.5)", "oklch(95% 0.015 264.5)"]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Firm Rule",
+        "canonical": "#b7c0cf",
+        "tonalRamp": ["oklch(15% 0.023 260.7)", "oklch(26% 0.023 260.7)", "oklch(38% 0.023 260.7)", "oklch(50% 0.023 260.7)", "oklch(62% 0.023 260.7)", "oklch(74% 0.023 260.7)", "oklch(86% 0.023 260.7)", "oklch(95% 0.023 260.7)"]
+      },
+      "brand": {
+        "role": "primary",
+        "displayName": "Decisive Blue",
+        "canonical": "#2447c6",
+        "tonalRamp": ["oklch(15% 0.201 266.2)", "oklch(26% 0.201 266.2)", "oklch(38% 0.201 266.2)", "oklch(50% 0.201 266.2)", "oklch(62% 0.201 266.2)", "oklch(74% 0.201 266.2)", "oklch(86% 0.201 266.2)", "oklch(95% 0.201 266.2)"]
+      },
+      "brand-dark": {
+        "role": "primary",
+        "displayName": "Deep Action Blue",
+        "canonical": "#18358f",
+        "tonalRamp": ["oklch(15% 0.153 265.5)", "oklch(26% 0.153 265.5)", "oklch(38% 0.153 265.5)", "oklch(50% 0.153 265.5)", "oklch(62% 0.153 265.5)", "oklch(74% 0.153 265.5)", "oklch(86% 0.153 265.5)", "oklch(95% 0.153 265.5)"]
+      },
+      "brand-soft": {
+        "role": "primary",
+        "displayName": "Quiet Blue Wash",
+        "canonical": "#e9edff",
+        "tonalRamp": ["oklch(15% 0.025 275.9)", "oklch(26% 0.025 275.9)", "oklch(38% 0.025 275.9)", "oklch(50% 0.025 275.9)", "oklch(62% 0.025 275.9)", "oklch(74% 0.025 275.9)", "oklch(86% 0.025 275.9)", "oklch(95% 0.025 275.9)"]
+      },
+      "amber": {
+        "role": "semantic",
+        "displayName": "Review Amber",
+        "canonical": "#9a5a00",
+        "tonalRamp": ["oklch(15% 0.119 64.3)", "oklch(26% 0.119 64.3)", "oklch(38% 0.119 64.3)", "oklch(50% 0.119 64.3)", "oklch(62% 0.119 64.3)", "oklch(74% 0.119 64.3)", "oklch(86% 0.119 64.3)", "oklch(95% 0.119 64.3)"]
+      },
+      "amber-soft": {
+        "role": "semantic",
+        "displayName": "Amber Wash",
+        "canonical": "#fff3d6",
+        "tonalRamp": ["oklch(15% 0.040 88.2)", "oklch(26% 0.040 88.2)", "oklch(38% 0.040 88.2)", "oklch(50% 0.040 88.2)", "oklch(62% 0.040 88.2)", "oklch(74% 0.040 88.2)", "oklch(86% 0.040 88.2)", "oklch(95% 0.040 88.2)"]
+      },
+      "danger": {
+        "role": "semantic",
+        "displayName": "Action Red",
+        "canonical": "#b42335",
+        "tonalRamp": ["oklch(15% 0.179 20.7)", "oklch(26% 0.179 20.7)", "oklch(38% 0.179 20.7)", "oklch(50% 0.179 20.7)", "oklch(62% 0.179 20.7)", "oklch(74% 0.179 20.7)", "oklch(86% 0.179 20.7)", "oklch(95% 0.179 20.7)"]
+      },
+      "danger-dark": {
+        "role": "semantic",
+        "displayName": "Deep Action Red",
+        "canonical": "#871526",
+        "tonalRamp": ["oklch(15% 0.147 19.8)", "oklch(26% 0.147 19.8)", "oklch(38% 0.147 19.8)", "oklch(50% 0.147 19.8)", "oklch(62% 0.147 19.8)", "oklch(74% 0.147 19.8)", "oklch(86% 0.147 19.8)", "oklch(95% 0.147 19.8)"]
+      },
+      "danger-soft": {
+        "role": "semantic",
+        "displayName": "Red Wash",
+        "canonical": "#fdebed",
+        "tonalRamp": ["oklch(15% 0.020 9.8)", "oklch(26% 0.020 9.8)", "oklch(38% 0.020 9.8)", "oklch(50% 0.020 9.8)", "oklch(62% 0.020 9.8)", "oklch(74% 0.020 9.8)", "oklch(86% 0.020 9.8)", "oklch(95% 0.020 9.8)"]
+      },
+      "success": {
+        "role": "semantic",
+        "displayName": "Assurance Green",
+        "canonical": "#176b47",
+        "tonalRamp": ["oklch(15% 0.097 159.7)", "oklch(26% 0.097 159.7)", "oklch(38% 0.097 159.7)", "oklch(50% 0.097 159.7)", "oklch(62% 0.097 159.7)", "oklch(74% 0.097 159.7)", "oklch(86% 0.097 159.7)", "oklch(95% 0.097 159.7)"]
+      },
+      "success-soft": {
+        "role": "semantic",
+        "displayName": "Green Wash",
+        "canonical": "#e5f5ed",
+        "tonalRamp": ["oklch(15% 0.020 164.6)", "oklch(26% 0.020 164.6)", "oklch(38% 0.020 164.6)", "oklch(50% 0.020 164.6)", "oklch(62% 0.020 164.6)", "oklch(74% 0.020 164.6)", "oklch(86% 0.020 164.6)", "oklch(95% 0.020 164.6)"]
+      },
+      "focus-ring": {
+        "role": "primary",
+        "displayName": "Focus Blue",
+        "canonical": "#82a2ff",
+        "tonalRamp": ["oklch(15% 0.140 268.4)", "oklch(26% 0.140 268.4)", "oklch(38% 0.140 268.4)", "oklch(50% 0.140 268.4)", "oklch(62% 0.140 268.4)", "oklch(74% 0.140 268.4)", "oklch(86% 0.140 268.4)", "oklch(95% 0.140 268.4)"]
+      }
+    },
+    "typographyMeta": {
+      "display": {"displayName": "Display", "purpose": "Landing and primary page headings."},
+      "headline": {"displayName": "Headline", "purpose": "Section-level hierarchy."},
+      "title": {"displayName": "Title", "purpose": "Compact cards and grouped content."},
+      "body": {"displayName": "Body", "purpose": "Instructions, form content and operational detail."},
+      "label": {"displayName": "Label", "purpose": "Actions, fields, metadata and table headers."}
+    },
+    "shadows": [
+      {
+        "name": "ambient-surface",
+        "value": "0 12px 30px rgba(25, 37, 63, 0.08)",
+        "purpose": "Focused work surfaces and transient overlays."
+      },
+      {
+        "name": "presentation-board",
+        "value": "0 30px 70px rgba(0, 0, 0, 0.3)",
+        "purpose": "The landing-page workflow illustration only."
+      }
+    ],
+    "breakpoints": [
+      {"name": "stack-major", "value": "900px"},
+      {"name": "stack-compact", "value": "700px"}
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The default high-emphasis action for progressing or saving.",
+      "html": "<button class=\"ds-button-primary\" type=\"button\">Save changes</button>",
+      "css": ".ds-button-primary { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: .5rem; padding: .65rem 1rem; border: 1px solid var(--brand); border-radius: 10px; color: var(--paper); background: var(--brand); font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 1rem; font-weight: 720; cursor: pointer; } .ds-button-primary:hover { background: var(--brand-dark); border-color: var(--brand-dark); } .ds-button-primary:focus-visible { outline: 3px solid #82a2ff; outline-offset: 3px; } .ds-button-primary:disabled { opacity: .45; cursor: not-allowed; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A bordered companion action for cancel, back and lower-emphasis choices.",
+      "html": "<button class=\"ds-button-secondary\" type=\"button\">Cancel</button>",
+      "css": ".ds-button-secondary { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: .5rem; padding: .65rem 1rem; border: 1px solid var(--line-strong); border-radius: 10px; color: var(--ink); background: var(--paper); font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 1rem; font-weight: 720; cursor: pointer; } .ds-button-secondary:hover { color: var(--ink); background: var(--canvas); border-color: var(--ink); } .ds-button-secondary:focus-visible { outline: 3px solid #82a2ff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "A destructive action reserved for deletion and other irreversible operations.",
+      "html": "<button class=\"ds-button-danger\" type=\"button\">Delete exam</button>",
+      "css": ".ds-button-danger { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: .65rem 1rem; border: 1px solid var(--danger); border-radius: 10px; color: var(--paper); background: var(--danger); font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 1rem; font-weight: 720; cursor: pointer; } .ds-button-danger:hover { background: var(--danger-dark); border-color: var(--danger-dark); } .ds-button-danger:focus-visible { outline: 3px solid #82a2ff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "The standard labeled text entry pattern used throughout account and assessment forms.",
+      "html": "<label class=\"ds-field\" for=\"ds-title\"><span class=\"ds-field-label\">Exam title</span><input class=\"ds-field-input\" id=\"ds-title\" value=\"Security fundamentals\"></label>",
+      "css": ".ds-field { display: grid; gap: .45rem; color: var(--ink); font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif; } .ds-field-label { font-weight: 680; } .ds-field-input { width: 100%; min-height: 46px; padding: .7rem .8rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line-strong); border-radius: 9px; font: inherit; } .ds-field-input:hover { border-color: #8792a5; } .ds-field-input:focus-visible { outline: 3px solid #82a2ff; outline-offset: 3px; } .ds-field-input[aria-invalid=\"true\"] { border-color: var(--danger); box-shadow: 0 0 0 1px var(--danger); }"
+    },
+    {
+      "name": "Status Badge",
+      "kind": "chip",
+      "refersTo": "status",
+      "description": "A compact semantic label for readiness, completion and review states.",
+      "html": "<div class=\"ds-status-row\"><span class=\"ds-status\">Ready</span><span class=\"ds-status ds-status-pass\">Complete</span><span class=\"ds-status ds-status-review\">Review</span></div>",
+      "css": ".ds-status-row { display: flex; flex-wrap: wrap; gap: .75rem; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif; } .ds-status { display: inline-flex; align-items: center; width: fit-content; min-height: 28px; padding: .2rem .6rem; border-radius: 999px; color: var(--brand); background: var(--brand-soft); font-size: .78rem; font-weight: 760; } .ds-status-pass { color: var(--success); background: var(--success-soft); } .ds-status-review { color: var(--amber); background: var(--amber-soft); }"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "The default bordered paper surface for forms, lists and dashboard content.",
+      "html": "<section class=\"ds-panel\"><header class=\"ds-panel-header\"><h3>Recent exams</h3><span class=\"ds-panel-meta\">3 available</span></header><div class=\"ds-panel-body\">Choose an assessment when you are ready to begin.</div></section>",
+      "css": ".ds-panel { color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 14px; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif; overflow: hidden; } .ds-panel-header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.25rem 1.4rem; border-bottom: 1px solid var(--line); } .ds-panel-header h3 { margin: 0; font-size: 1.25rem; line-height: 1.15; letter-spacing: -.025em; } .ds-panel-meta { color: var(--muted); font-size: .86rem; } .ds-panel-body { padding: 1.4rem; line-height: 1.55; }"
+    },
+    {
+      "name": "Primary Navigation",
+      "kind": "nav",
+      "description": "The sticky application header with a restrained brand mark and clearly underlined current route.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Primary navigation\"><a class=\"ds-brand\" href=\"#\"><span class=\"ds-brand-mark\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\"><path d=\"M5 7h7l3 3h4M5 12h5l3 3h6M5 17h7\"/></svg></span><span>ExamFlow</span></a><div class=\"ds-nav-links\"><a class=\"ds-nav-link ds-nav-current\" href=\"#\">Overview</a><a class=\"ds-nav-link\" href=\"#\">Exams</a><a class=\"ds-nav-link\" href=\"#\">Students</a></div></nav>",
+      "css": ".ds-nav { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 0 1rem; color: var(--ink); background: rgba(255, 255, 255, .96); border-bottom: 1px solid var(--line); font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif; } .ds-brand { display: inline-flex; align-items: center; gap: .7rem; color: var(--ink); font-weight: 760; letter-spacing: -.02em; text-decoration: none; } .ds-brand-mark { display: grid; place-items: center; width: 36px; height: 36px; color: var(--paper); background: var(--brand); border-radius: 11px; } .ds-brand-mark svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; } .ds-nav-links { display: flex; align-items: center; gap: 1.25rem; } .ds-nav-link { color: var(--muted); font-weight: 620; text-decoration: none; } .ds-nav-link:hover { color: var(--ink); } .ds-nav-link:focus-visible { outline: 3px solid #82a2ff; outline-offset: 3px; } .ds-nav-current { color: var(--ink); box-shadow: inset 0 -2px var(--brand); }"
+    },
+    {
+      "name": "Exam Answer Option",
+      "kind": "custom",
+      "refersTo": "exam-option",
+      "description": "The large, explicit radio choice used in the focused timed-exam workspace.",
+      "html": "<label class=\"ds-option\"><input class=\"ds-option-radio\" type=\"radio\" name=\"answer\" checked><span>Enable multi-factor authentication</span></label>",
+      "css": ".ds-option { display: flex; gap: .8rem; align-items: flex-start; padding: 1rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line-strong); border-radius: 11px; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 520; cursor: pointer; } .ds-option:hover { border-color: var(--brand); background: var(--brand-soft); } .ds-option:has(.ds-option-radio:checked) { border-color: var(--brand); background: var(--brand-soft); box-shadow: inset 0 0 0 1px var(--brand); } .ds-option-radio { width: 20px; min-height: 20px; margin: .12rem 0 0; accent-color: var(--brand); } .ds-option-radio:focus-visible { outline: 3px solid #82a2ff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Question Palette Button",
+      "kind": "custom",
+      "description": "The numbered question navigator with current and answered states.",
+      "html": "<div class=\"ds-palette\"><button class=\"ds-palette-button\">1</button><button class=\"ds-palette-button ds-palette-current\">2</button><button class=\"ds-palette-button ds-palette-answered\">3</button></div>",
+      "css": ".ds-palette { display: grid; grid-template-columns: repeat(3, 44px); gap: .5rem; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif; } .ds-palette-button { aspect-ratio: 1; border: 1px solid var(--line-strong); border-radius: 8px; color: var(--ink); background: var(--paper); font: inherit; cursor: pointer; } .ds-palette-button:hover { border-color: var(--brand); } .ds-palette-button:focus-visible { outline: 3px solid #82a2ff; outline-offset: 3px; } .ds-palette-current { color: var(--paper); background: var(--brand); border-color: var(--brand); } .ds-palette-answered:not(.ds-palette-current) { color: var(--success); background: var(--success-soft); border-color: #80b99e; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Proctor",
+    "overview": "ExamFlow feels like a quiet proctor: present, legible and disciplined without competing with the work. Deep ink frames important moments, white paper surfaces hold the task, and a decisive blue makes actions and current state unmistakable.\n\nThe interface is compact but breathable. Fine borders organize routine information; selective shadow lifts only the few surfaces that need attention. Semantic color appears as concise feedback, while the timed examination workspace removes the general application chrome and keeps the question, remaining time and navigation in view.",
+    "keyCharacteristics": [
+      "Cool, low-contrast paper-and-canvas layering",
+      "Dark ink anchors with restrained blue emphasis",
+      "Clear task hierarchy and minimal visual noise",
+      "Rounded controls with precise borders",
+      "Purposeful feedback for progress, success, review and danger"
+    ],
+    "rules": [
+      {"name": "The One Accent Rule", "body": "Use blue for action and current selection; reserve amber, red and green for semantic outcomes.", "section": "colors"},
+      {"name": "The Paper-on-Canvas Rule", "body": "Routine work sits on white surfaces over the cool canvas, separated by borders before shadow.", "section": "colors"},
+      {"name": "The Sentence Case Rule", "body": "Keep interface copy in sentence case; uppercase is reserved for compact table headers.", "section": "typography"},
+      {"name": "The Stable Numbers Rule", "body": "Timers, scores and metric values use tabular figures so changing values do not shift the layout.", "section": "typography"},
+      {"name": "The Bounded Workspace Rule", "body": "Keep general work inside the `1180px` frame and grant the timed exam extra width only for its question-and-navigator split.", "section": "layout"},
+      {"name": "The Selective Lift Rule", "body": "Start with a fine border; add shadow only when a surface is transient, focused or intentionally presented.", "section": "elevation"},
+      {"name": "The Nested Radius Rule", "body": "Larger containers use the `14px` surface radius; controls inside them step down to `8px-11px` so hierarchy remains visible.", "section": "shapes"}
+    ],
+    "dos": [
+      "Do use Decisive Blue for primary actions and current state.",
+      "Do preserve the `44px` button and `46px` field minimum heights for dependable interaction.",
+      "Do use borders and tonal contrast to organize routine panels before adding shadow.",
+      "Do keep the timer, score and metric values stable with tabular figures.",
+      "Do preserve visible focus and the reduced-motion fallback on every core workflow."
+    ],
+    "donts": [
+      "Don't use semantic amber, red or green as decorative accents.",
+      "Don't turn large routine surfaces blue; Deep Ink and Paper White carry the main structure.",
+      "Don't add elevation to every panel or table row.",
+      "Don't hide the native exam selection control or make answer state depend on color alone.",
+      "Don't retain multi-column tables, forms or workspaces when the established responsive breakpoints stack them."
+    ]
+  }
+}

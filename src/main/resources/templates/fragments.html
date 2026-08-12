@@ -12,20 +12,36 @@
 <header class="site-header" th:fragment="header">
     <div class="nav-shell">
         <a class="brand" th:href="@{/}" aria-label="ExamFlow home">
-            <span class="brand-mark" aria-hidden="true">EF</span>
+            <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                    <path d="M5 7h7l3 3h4M5 12h5l3 3h6M5 17h7"/>
+                </svg>
+            </span>
             <span>ExamFlow</span>
         </a>
         <button class="nav-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="primary-nav">Menu</button>
         <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
             <th:block sec:authorize="hasRole('ADMIN')">
-                <a th:href="@{/admin/dashboard}">Overview</a>
-                <a th:href="@{/admin/manage-exams}">Exams</a>
-                <a th:href="@{/admin/students}">Students</a>
+                <a th:href="@{/admin/dashboard}"
+                   th:classappend="${currentPath == '/admin/dashboard'} ? 'nav-current' : ''"
+                   th:attr="aria-current=${currentPath == '/admin/dashboard' ? 'page' : null}">Overview</a>
+                <a th:href="@{/admin/manage-exams}"
+                   th:classappend="${#strings.startsWith(currentPath, '/admin/manage-exams') or #strings.startsWith(currentPath, '/admin/exam') or #strings.startsWith(currentPath, '/admin/question') or #strings.startsWith(currentPath, '/admin/results')} ? 'nav-current' : ''"
+                   th:attr="aria-current=${#strings.startsWith(currentPath, '/admin/manage-exams') or #strings.startsWith(currentPath, '/admin/exam') or #strings.startsWith(currentPath, '/admin/question') or #strings.startsWith(currentPath, '/admin/results') ? 'page' : null}">Exams</a>
+                <a th:href="@{/admin/students}"
+                   th:classappend="${#strings.startsWith(currentPath, '/admin/students')} ? 'nav-current' : ''"
+                   th:attr="aria-current=${#strings.startsWith(currentPath, '/admin/students') ? 'page' : null}">Students</a>
             </th:block>
             <th:block sec:authorize="hasRole('STUDENT')">
-                <a th:href="@{/student/dashboard}">Dashboard</a>
-                <a th:href="@{/student/my-results}">Results</a>
-                <a th:href="@{/student/profile}">Profile</a>
+                <a th:href="@{/student/dashboard}"
+                   th:classappend="${currentPath == '/student/dashboard'} ? 'nav-current' : ''"
+                   th:attr="aria-current=${currentPath == '/student/dashboard' ? 'page' : null}">Dashboard</a>
+                <a th:href="@{/student/my-results}"
+                   th:classappend="${#strings.startsWith(currentPath, '/student/my-results') or #strings.startsWith(currentPath, '/student/review') or #strings.startsWith(currentPath, '/student/result')} ? 'nav-current' : ''"
+                   th:attr="aria-current=${#strings.startsWith(currentPath, '/student/my-results') or #strings.startsWith(currentPath, '/student/review') or #strings.startsWith(currentPath, '/student/result') ? 'page' : null}">Results</a>
+                <a th:href="@{/student/profile}"
+                   th:classappend="${#strings.startsWith(currentPath, '/student/profile')} ? 'nav-current' : ''"
+                   th:attr="aria-current=${#strings.startsWith(currentPath, '/student/profile') ? 'page' : null}">Profile</a>
             </th:block>
             <th:block sec:authorize="isAnonymous()">
                 <a th:href="@{/login}">Sign in</a>

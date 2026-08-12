@@ -10,9 +10,9 @@
         <tbody>
             <tr th:if="${#lists.isEmpty(questions)}"><td colspan="4"><div class="empty-state"><strong>No questions yet</strong>Add at least one question before students take this exam.</div></td></tr>
             <tr th:each="question, iter : ${questions}">
-                <td><span class="list-title" th:text="|${iter.count}. ${question.text}|">Question</span></td>
-                <td th:text="|Option ${question.correctAnswer}|">Option 1</td><td th:text="${question.marks}">1</td>
-                <td><div class="table-actions"><a class="button button-secondary button-small" th:href="@{/admin/question/edit/{id}(id=${question.id})}">Edit</a><form th:action="@{/admin/exam/{examId}/question/delete/{questionId}(examId=${exam.id},questionId=${question.id})}" method="post" data-confirm="Delete this question? This cannot be undone."><button class="button button-danger button-small" type="submit">Delete</button></form></div></td>
+                <td data-label="Question"><span class="list-title" th:text="|${iter.count}. ${question.text}|">Question</span></td>
+                <td data-label="Answer" th:text="|Option ${question.correctAnswer}|">Option 1</td><td data-label="Marks" th:text="${question.marks}">1</td>
+                <td data-label="Actions"><div class="table-actions"><a class="button button-secondary button-small" th:href="@{/admin/question/edit/{id}(id=${question.id})}">Edit</a><form th:action="@{/admin/exam/{examId}/question/delete/{questionId}(examId=${exam.id},questionId=${question.id})}" method="post" data-confirm="Delete this question? This cannot be undone."><button class="button button-danger button-small" type="submit">Delete</button></form></div></td>
             </tr>
         </tbody>
     </table></div></section>

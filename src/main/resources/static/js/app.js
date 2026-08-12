@@ -25,8 +25,41 @@ document.addEventListener("DOMContentLoaded", () => {
     const previous = examApp.querySelector("[data-question-previous]");
     const next = examApp.querySelector("[data-question-next]");
     const timer = examApp.querySelector("[data-exam-timer]");
+    const examId = form?.querySelector('input[name="examId"]')?.value;
+    const deadline = Number(timer?.dataset.deadline || 0);
+    const draftKey = `examflow:draft:${examId}`;
     let current = 0;
     let submitting = false;
+    let hasAnswers = false;
+
+    const draftStorage = {
+        get() {
+            try { return sessionStorage.getItem(draftKey); }
+            catch { return null; }
+        },
+        set(value) {
+            try { sessionStorage.setItem(draftKey, value); }
+            catch { /* Draft persistence is optional. */ }
+        },
+        remove() {
+            try { sessionStorage.removeItem(draftKey); }
+            catch { /* Draft persistence is optional. */ }
+        }
+    };
+
+    try {
+        const draft = JSON.parse(draftStorage.get());
+        if (draft?.deadline === deadline) {
+            Object.entries(draft.answers || {}).forEach(([name, value]) => {
+                const radio = [...form.elements].find((element) => element.name === name && element.value === value);
+                if (radio) radio.checked = true;
+            });
+        } else {
+            draftStorage.remove();
+        }
+    } catch {
+        draftStorage.remove();
+    }
 
     const showQuestion = (index) => {
         if (index < 0 || index >= cards.length) return;
@@ -48,24 +81,39 @@ document.addEventListener("DOMContentLoaded", () => {
     next?.addEventListener("click", () => showQuestion(current + 1));
     paletteButtons.forEach((button, index) => button.addEventListener("click", () => showQuestion(index)));
     examApp.querySelectorAll('input[type="radio"]').forEach((radio) => {
-        radio.addEventListener("change", () => {
-            const card = radio.closest("[data-question]");
-            const index = cards.indexOf(card);
+        const card = radio.closest("[data-question]");
+        const index = cards.indexOf(card);
+        if (radio.checked) {
             paletteButtons[index]?.classList.add("is-answered");
+            hasAnswers = true;
+        }
+        radio.addEventListener("change", () => {
+            paletteButtons[index]?.classList.add("is-answered");
+            hasAnswers = true;
+            const answers = {};
+            examApp.querySelectorAll('input[type="radio"]:checked').forEach((answer) => {
+                answers[answer.name] = answer.value;
+            });
+            draftStorage.set(JSON.stringify({deadline, answers}));
         });
     });
 
     form?.addEventListener("submit", (event) => {
-        if (submitting) return;
-        if (!window.confirm("Submit this exam? You cannot change your answers afterward.")) {
+        if (!submitting && !window.confirm("Submit this exam? You cannot change your answers afterward.")) {
             event.preventDefault();
             return;
         }
         submitting = true;
+        draftStorage.remove();
     });
 
-    const durationSeconds = Number(timer?.dataset.minutes || 0) * 60;
-    const deadline = Date.now() + durationSeconds * 1000;
+    window.addEventListener("beforeunload", (event) => {
+        if (hasAnswers && !submitting) {
+            event.preventDefault();
+            event.returnValue = "";
+        }
+    });
+
     const updateTimer = () => {
         const remaining = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
         const minutes = Math.floor(remaining / 60).toString().padStart(2, "0");

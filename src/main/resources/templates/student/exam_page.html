@@ -6,7 +6,7 @@
 <header class="exam-topbar">
     <div class="exam-topbar-inner">
         <div class="exam-title"><strong th:text="${exam.title}">Exam title</strong><span th:text="|${#lists.size(questions)} questions · ${exam.durationInMinutes} minutes|">Questions and time</span></div>
-        <div class="exam-meta"><span th:text="${student.fullName}">Student</span><span class="timer" data-exam-timer th:data-minutes="${exam.durationInMinutes}" role="timer" aria-label="Time remaining">--:--</span></div>
+        <div class="exam-meta"><span th:text="${student.fullName}">Student</span><span class="timer" data-exam-timer th:data-deadline="${deadlineEpochMillis}" role="timer" aria-label="Time remaining">--:--</span></div>
     </div>
 </header>
 <main class="exam-workspace">

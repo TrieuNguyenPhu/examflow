@@ -8,7 +8,7 @@
         <thead><tr><th>Student</th><th>Email</th><th>Score</th><th>Submitted</th></tr></thead>
         <tbody>
             <tr th:if="${#lists.isEmpty(results)}"><td colspan="4"><div class="empty-state"><strong>No submissions yet</strong>Results appear after a student completes this exam.</div></td></tr>
-            <tr th:each="result : ${results}"><td class="list-title" th:text="${result.student.fullName}">Student</td><td th:text="${result.student.username}">Email</td><td><span class="score-value" th:text="|${result.scoreAchieved}/${result.totalMarks}|">0/0</span></td><td th:text="${#temporals.format(result.submissionTime, 'MMM d, yyyy HH:mm')}">Date</td></tr>
+            <tr th:each="result : ${results}"><td data-label="Student" class="list-title" th:text="${result.student.fullName}">Student</td><td data-label="Email" th:text="${result.student.username}">Email</td><td data-label="Score"><span class="score-value" th:text="|${result.scoreAchieved}/${result.totalMarks}|">0/0</span></td><td data-label="Submitted" th:text="${#temporals.format(result.submissionTime, 'MMM d, yyyy HH:mm')}">Date</td></tr>
         </tbody>
     </table></div></section>
 </main></body></html>

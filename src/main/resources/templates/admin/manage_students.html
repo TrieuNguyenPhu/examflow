@@ -10,9 +10,9 @@
         <tbody>
             <tr th:if="${#lists.isEmpty(students)}"><td colspan="4"><div class="empty-state"><strong>No student accounts</strong>Students appear here after registration.</div></td></tr>
             <tr th:each="student : ${students}">
-                <td><div class="table-user"><img th:if="${student.profilePicUrl}" th:src="@{${student.profilePicUrl}}" alt="" class="avatar avatar-small"><span th:unless="${student.profilePicUrl}" class="avatar avatar-small avatar-fallback" aria-hidden="true">EF</span><strong th:text="${student.fullName}">Student</strong></div></td>
-                <td th:text="${student.username}">student@example.com</td><td th:text="${#strings.isEmpty(student.mobileNumber) ? '—' : student.mobileNumber}">—</td>
-                <td><details class="disclosure"><summary>Manage account</summary><div class="stack">
+                <td data-label="Student"><div class="table-user"><img th:if="${student.profilePicUrl}" th:src="@{${student.profilePicUrl}}" alt="" class="avatar avatar-small"><span th:unless="${student.profilePicUrl}" class="avatar avatar-small avatar-fallback" aria-hidden="true">EF</span><strong th:text="${student.fullName}">Student</strong></div></td>
+                <td data-label="Email" th:text="${student.username}">student@example.com</td><td data-label="Phone" th:text="${#strings.isEmpty(student.mobileNumber) ? '—' : student.mobileNumber}">—</td>
+                <td data-label="Account actions"><details class="disclosure"><summary>Manage account</summary><div class="stack">
                     <form class="inline-form" th:action="@{/admin/student/reset-password}" method="post"><input type="hidden" name="userId" th:value="${student.id}"><div class="field"><label th:for="|password-${student.id}|">New password</label><input th:id="|password-${student.id}|" name="newPassword" type="password" minlength="12" maxlength="100" autocomplete="new-password" required></div><button class="button button-small" type="submit">Reset password</button></form>
                     <form th:action="@{/admin/student/delete/{id}(id=${student.id})}" method="post" data-confirm="Delete this student and every associated submission? This cannot be undone."><button class="button button-danger button-small" type="submit">Delete student</button></form>
                 </div></details></td>
