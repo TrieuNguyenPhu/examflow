@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(${exam.title})}"></head>
+<body class="exam-page" data-exam-app>
+<a class="skip-link" href="#exam-form">Skip to first question</a>
+<header class="exam-topbar">
+    <div class="exam-topbar-inner">
+        <div class="exam-title"><strong th:text="${exam.title}">Exam title</strong><span th:text="|${#lists.size(questions)} questions · ${exam.durationInMinutes} minutes|">Questions and time</span></div>
+        <div class="exam-meta"><span th:text="${student.fullName}">Student</span><span class="timer" data-exam-timer th:data-minutes="${exam.durationInMinutes}" role="timer" aria-label="Time remaining">--:--</span></div>
+    </div>
+</header>
+<main class="exam-workspace">
+    <div>
+        <form id="exam-form" th:action="@{/exam/submit}" method="post">
+            <input type="hidden" name="examId" th:value="${exam.id}">
+            <section class="question-card" th:each="question, iter : ${questions}" data-question th:hidden="${!iter.first}" th:attr="aria-labelledby=|question-${iter.index}|">
+                <span class="question-number" th:text="|Question ${iter.count} of ${#lists.size(questions)} · ${question.marks} ${question.marks == 1 ? 'mark' : 'marks'}|">Question</span>
+                <h1 class="question-text" th:id="|question-${iter.index}|" th:text="${question.text}">Question text</h1>
+                <div class="option-list">
+                    <label class="option" th:for="|q${question.id}-1|"><input type="radio" th:id="|q${question.id}-1|" th:name="|q_${question.id}|" value="1"><span th:text="${question.option1}">Option 1</span></label>
+                    <label class="option" th:for="|q${question.id}-2|"><input type="radio" th:id="|q${question.id}-2|" th:name="|q_${question.id}|" value="2"><span th:text="${question.option2}">Option 2</span></label>
+                    <label class="option" th:for="|q${question.id}-3|"><input type="radio" th:id="|q${question.id}-3|" th:name="|q_${question.id}|" value="3"><span th:text="${question.option3}">Option 3</span></label>
+                    <label class="option" th:for="|q${question.id}-4|"><input type="radio" th:id="|q${question.id}-4|" th:name="|q_${question.id}|" value="4"><span th:text="${question.option4}">Option 4</span></label>
+                </div>
+            </section>
+            <div class="question-controls"><button class="button button-secondary" type="button" data-question-previous>Previous</button><button class="button" type="button" data-question-next>Next question</button></div>
+        </form>
+    </div>
+    <aside class="exam-sidebar" aria-label="Question navigator">
+        <h2>Questions</h2>
+        <p class="muted small">Move between questions in any order.</p>
+        <div class="palette"><button class="palette-button" type="button" th:each="question, iter : ${questions}" th:text="${iter.count}" th:attr="aria-label=|Go to question ${iter.count}|" data-question-jump>1</button></div>
+        <div class="legend"><span><span class="legend-dot"></span>Not answered</span><span><span class="legend-dot answered"></span>Answered</span></div>
+        <button class="button button-wide" type="submit" form="exam-form">Submit exam</button>
+    </aside>
+</main>
+</body>
+</html>

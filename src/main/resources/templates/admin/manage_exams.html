@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Manage exams')}"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><header th:replace="~{fragments :: header}"></header>
+<main id="main" class="page-shell">
+    <div class="page-heading"><div class="page-heading-copy"><h1>Exams.</h1><p>Create the assessment, build its question set and inspect submissions.</p></div><a class="button" th:href="@{/admin/exam/add}">Create exam</a></div>
+    <div th:replace="~{fragments :: messages}"></div>
+    <section class="panel"><div class="table-scroll"><table>
+        <thead><tr><th>Exam</th><th>Duration</th><th>Questions</th><th>Actions</th></tr></thead>
+        <tbody>
+            <tr th:if="${#lists.isEmpty(exams)}"><td colspan="4"><div class="empty-state"><strong>No exams yet</strong>Create your first exam to begin adding questions.</div></td></tr>
+            <tr th:each="exam : ${exams}">
+                <td><span class="list-title" th:text="${exam.title}">Exam</span><span class="list-meta" th:if="${exam.description}" th:text="${exam.description}">Description</span></td>
+                <td th:text="|${exam.durationInMinutes} min|">60 min</td><td th:text="${#lists.size(exam.questions)}">0</td>
+                <td><div class="table-actions">
+                    <a class="button button-small" th:href="@{/admin/exam/manage-questions/{id}(id=${exam.id})}">Questions</a>
+                    <a class="button button-secondary button-small" th:href="@{/admin/results/{id}(id=${exam.id})}">Results</a>
+                    <a class="button button-secondary button-small" th:href="@{/admin/exam/edit/{id}(id=${exam.id})}">Edit</a>
+                    <form th:action="@{/admin/exam/delete/{id}(id=${exam.id})}" method="post" data-confirm="Delete this exam and all associated submissions? This cannot be undone."><button class="button button-danger button-small" type="submit">Delete</button></form>
+                </div></td>
+            </tr>
+        </tbody>
+    </table></div></section>
+</main></body></html>

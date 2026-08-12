@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Manage students')}"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><header th:replace="~{fragments :: header}"></header>
+<main id="main" class="page-shell">
+    <div class="page-heading"><div class="page-heading-copy"><h1>Students.</h1><p>Manage access without exposing passwords or student submissions.</p></div></div>
+    <div th:replace="~{fragments :: messages}"></div>
+    <section class="panel"><div class="table-scroll"><table>
+        <thead><tr><th>Student</th><th>Email</th><th>Phone</th><th>Account actions</th></tr></thead>
+        <tbody>
+            <tr th:if="${#lists.isEmpty(students)}"><td colspan="4"><div class="empty-state"><strong>No student accounts</strong>Students appear here after registration.</div></td></tr>
+            <tr th:each="student : ${students}">
+                <td><div class="table-user"><img th:if="${student.profilePicUrl}" th:src="@{${student.profilePicUrl}}" alt="" class="avatar avatar-small"><span th:unless="${student.profilePicUrl}" class="avatar avatar-small avatar-fallback" aria-hidden="true">EF</span><strong th:text="${student.fullName}">Student</strong></div></td>
+                <td th:text="${student.username}">student@example.com</td><td th:text="${#strings.isEmpty(student.mobileNumber) ? '—' : student.mobileNumber}">—</td>
+                <td><details class="disclosure"><summary>Manage account</summary><div class="stack">
+                    <form class="inline-form" th:action="@{/admin/student/reset-password}" method="post"><input type="hidden" name="userId" th:value="${student.id}"><div class="field"><label th:for="|password-${student.id}|">New password</label><input th:id="|password-${student.id}|" name="newPassword" type="password" minlength="12" maxlength="100" autocomplete="new-password" required></div><button class="button button-small" type="submit">Reset password</button></form>
+                    <form th:action="@{/admin/student/delete/{id}(id=${student.id})}" method="post" data-confirm="Delete this student and every associated submission? This cannot be undone."><button class="button button-danger button-small" type="submit">Delete student</button></form>
+                </div></details></td>
+            </tr>
+        </tbody>
+    </table></div></section>
+</main></body></html>

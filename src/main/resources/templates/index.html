@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Online assessment, made clear')}"></head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header th:replace="~{fragments :: header}"></header>
+<main id="main">
+    <section class="hero">
+        <div class="container hero-inner">
+            <div class="hero-copy">
+                <h1>Every exam, from first question to final review.</h1>
+                <p>ExamFlow gives administrators a focused place to build assessments and gives students a clear, timed path through every question.</p>
+                <div class="cluster">
+                    <a class="button" th:href="@{/register}">Create student account</a>
+                    <a class="button button-secondary" th:href="@{/login}">Sign in</a>
+                </div>
+            </div>
+            <div class="hero-board" aria-label="Illustration of the ExamFlow assessment process">
+                <div class="board-top">
+                    <strong>Java fundamentals</strong>
+                    <span class="status">Ready</span>
+                </div>
+                <div class="board-flow">
+                    <div class="board-step">
+                        <span class="step-number">1</span>
+                        <span><strong>Build the exam</strong><br><small class="muted">Questions, choices and marks</small></span>
+                        <span class="status">Complete</span>
+                    </div>
+                    <div class="board-step">
+                        <span class="step-number">2</span>
+                        <span><strong>Take it with focus</strong><br><small class="muted">Timer and question navigator</small></span>
+                        <span class="status">Timed</span>
+                    </div>
+                    <div class="board-step">
+                        <span class="step-number">3</span>
+                        <span><strong>Review the result</strong><br><small class="muted">Score and answer breakdown</small></span>
+                        <span class="status">Instant</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="feature-band">
+        <div class="container feature-layout">
+            <div class="feature-intro">
+                <h2>A complete assessment loop without the clutter.</h2>
+                <p class="muted">One application supports the work before, during and after an exam.</p>
+            </div>
+            <div class="feature-list">
+                <div class="feature-row">
+                    <h3>For administrators</h3>
+                    <p>Create exams and questions, manage students, reset access and inspect submissions from a single workspace.</p>
+                </div>
+                <div class="feature-row">
+                    <h3>For students</h3>
+                    <p>See available exams, answer at your own pace within the time limit, and review every result afterward.</p>
+                </div>
+                <div class="feature-row">
+                    <h3>Secure by default</h3>
+                    <p>Role-based access, CSRF protection, hashed passwords and validated image uploads are built into each workflow.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,11 @@
+.git
+.github
+.idea
+.vscode
+.private-source-data
+data/*
+uploads/*
+screenshots
+target
+*.log
+.env*

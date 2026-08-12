@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Profile')}"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><header th:replace="~{fragments :: header}"></header>
+<main id="main" class="page-shell">
+    <div class="page-heading"><div class="page-heading-copy"><h1>Profile and security.</h1><p>Keep your contact details current and protect access to your account.</p></div></div>
+    <div th:replace="~{fragments :: messages}"></div>
+    <div class="profile-layout">
+        <aside class="panel"><div class="panel-body profile-summary">
+            <img th:if="${student.profilePicUrl}" th:src="@{${student.profilePicUrl}}" alt="Current profile" class="avatar avatar-large">
+            <span th:unless="${student.profilePicUrl}" class="avatar avatar-large avatar-fallback" aria-hidden="true">EF</span>
+            <h2 th:text="${student.fullName}">Student name</h2><p class="muted small" th:text="${student.username}">student@example.com</p>
+            <form class="stack" th:action="@{/student/profile/update-picture}" method="post" enctype="multipart/form-data"><div class="field"><label for="profilePicFile">Replace profile image</label><input id="profilePicFile" type="file" name="profilePicFile" accept="image/png,image/jpeg" required><span class="field-help">JPEG or PNG, up to 5 MB.</span></div><button class="button button-secondary button-small" type="submit">Upload image</button></form>
+        </div></aside>
+        <div class="profile-forms">
+            <section class="panel"><div class="panel-header"><h2>Personal details</h2></div><div class="panel-body">
+                <form class="form-grid" th:action="@{/student/profile/update-details}" method="post"><div class="field field-full"><label for="fullName">Full name</label><input id="fullName" name="fullName" th:value="${student.fullName}" maxlength="100" autocomplete="name" required></div><div class="field"><label for="username">Email</label><input id="username" type="email" th:value="${student.username}" readonly></div><div class="field"><label for="mobileNumber">Phone</label><input id="mobileNumber" name="mobileNumber" th:value="${student.mobileNumber}" maxlength="30" autocomplete="tel"></div><div class="form-actions field-full"><button class="button" type="submit">Save details</button></div></form>
+            </div></section>
+            <section class="panel"><div class="panel-header"><h2>Change password</h2></div><div class="panel-body">
+                <form class="form-grid" th:action="@{/student/profile/update-password}" method="post"><div class="field field-full"><label for="oldPassword">Current password</label><input id="oldPassword" name="oldPassword" type="password" autocomplete="current-password" required></div><div class="field"><label for="newPassword">New password</label><input id="newPassword" name="newPassword" type="password" minlength="12" maxlength="100" autocomplete="new-password" required></div><div class="field"><label for="confirmPassword">Confirm new password</label><input id="confirmPassword" name="confirmPassword" type="password" minlength="12" maxlength="100" autocomplete="new-password" required></div><div class="form-actions field-full"><button class="button" type="submit">Update password</button></div></form>
+            </div></section>
+        </div>
+    </div>
+</main></body></html>

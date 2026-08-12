@@ -1,0 +1,33 @@
+# Build output
+target/
+build/
+
+# Runtime data and user uploads
+data/*
+!data/.gitkeep
+uploads/*
+!uploads/.gitkeep
+.private-source-data/
+
+# IDEs and operating systems
+.idea/
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
+.apt_generated/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+Thumbs.db
+
+# Local configuration and logs
+.env
+.env.*
+!.env.example
+*.log
+
+# Impeccable working artifacts
+.impeccable/

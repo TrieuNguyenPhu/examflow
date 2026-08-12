@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('My results')}"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><header th:replace="~{fragments :: header}"></header>
+<main id="main" class="page-shell">
+    <div class="page-heading"><div class="page-heading-copy"><h1>Your results.</h1><p>Review every completed exam and the answers recorded at submission.</p></div></div>
+    <section class="panel"><div class="table-scroll"><table>
+        <thead><tr><th>Exam</th><th>Submitted</th><th>Score</th><th>Percentage</th><th></th></tr></thead>
+        <tbody>
+            <tr th:if="${#lists.isEmpty(pastResults)}"><td colspan="5"><div class="empty-state"><strong>No completed exams</strong>Return to your dashboard when an exam becomes available.</div></td></tr>
+            <tr th:each="result : ${pastResults}"><td class="list-title" th:text="${result.exam.title}">Exam</td><td th:text="${#temporals.format(result.submissionTime, 'MMM d, yyyy HH:mm')}">Date</td><td th:text="|${result.scoreAchieved}/${result.totalMarks}|">0/0</td><td><span class="status" th:text="${result.totalMarks == 0 ? '0%' : #numbers.formatDecimal(result.scoreAchieved * 100.0 / result.totalMarks, 1, 0) + '%'}">0%</span></td><td><a th:href="@{/student/review/{id}(id=${result.id})}">Review answers</a></td></tr>
+        </tbody>
+    </table></div></section>
+</main></body></html>

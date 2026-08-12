@@ -1,0 +1,10 @@
+ExamFlow
+
+This project is derived from the Online Exam System project originally published
+by sumitkumar1503 ("sumit") at:
+https://github.com/sumitkumar1503/online-exam-system
+
+The upstream README declared the source available under the MIT License. The
+original promotional links and personal contact details have been removed from
+the application source and documentation. ExamFlow contains substantial fixes,
+security hardening, tests, documentation, and interface work by its contributors.

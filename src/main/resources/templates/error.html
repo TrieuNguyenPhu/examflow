@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Something went wrong')}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="auth-page">
+    <div class="auth-shell">
+        <div class="auth-heading">
+            <h1 th:text="${status == 404 ? 'Page not found.' : (status == 403 ? 'Access denied.' : 'Something went wrong.')}">Something went wrong.</h1>
+            <p class="muted" th:text="${status == 404 ? 'The page may have moved or no longer exists.' : (status == 403 ? 'Your account does not have permission to open this page.' : 'Please return to your dashboard and try again.')}">Please try again.</p>
+        </div>
+        <a class="button" th:href="@{/}">Return to ExamFlow</a>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Exam result')}"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><header th:replace="~{fragments :: header}"></header>
+<main id="main" class="page-shell narrow">
+    <section class="result-hero">
+        <div class="stack"><h1>Exam submitted.</h1><p th:text="|Your result for ${result.exam.title} is ready.|">Your result is ready.</p><span th:text="${#temporals.format(result.submissionTime, 'MMM d, yyyy HH:mm')}">Date</span></div>
+        <div><div class="result-score" th:text="${total == 0 ? '0%' : #numbers.formatDecimal(score * 100.0 / total, 1, 0) + '%'}">0%</div><div th:text="|${score} of ${total} marks|">0 of 0 marks</div></div>
+    </section>
+    <section class="panel"><div class="panel-body spread"><div><h2 th:text="${total > 0 and score * 100.0 / total >= 70 ? 'Strong result.' : 'Keep building.'}">Result</h2><p class="muted" th:text="${total > 0 and score * 100.0 / total >= 70 ? 'Review the details to reinforce what worked.' : 'Review each answer and use the feedback for your next attempt.'}">Review your answers.</p></div><div class="cluster"><a class="button" th:href="@{/student/review/{id}(id=${resultId})}">Review answers</a><a class="button button-secondary" th:href="@{/student/dashboard}">Dashboard</a></div></div></section>
+</main></body></html>

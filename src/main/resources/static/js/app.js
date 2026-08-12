@@ -1,0 +1,85 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const menuToggle = document.querySelector("[data-menu-toggle]");
+    const menu = document.querySelector("#primary-nav");
+    menuToggle?.addEventListener("click", () => {
+        const open = menu.classList.toggle("is-open");
+        menuToggle.setAttribute("aria-expanded", String(open));
+    });
+
+    document.querySelectorAll("[data-dismiss-alert]").forEach((button) => {
+        button.addEventListener("click", () => button.closest(".alert")?.remove());
+    });
+
+    document.querySelectorAll("form[data-confirm]").forEach((form) => {
+        form.addEventListener("submit", (event) => {
+            if (!window.confirm(form.dataset.confirm)) event.preventDefault();
+        });
+    });
+
+    const examApp = document.querySelector("[data-exam-app]");
+    if (!examApp) return;
+
+    const form = examApp.querySelector("#exam-form");
+    const cards = [...examApp.querySelectorAll("[data-question]")];
+    const paletteButtons = [...examApp.querySelectorAll("[data-question-jump]")];
+    const previous = examApp.querySelector("[data-question-previous]");
+    const next = examApp.querySelector("[data-question-next]");
+    const timer = examApp.querySelector("[data-exam-timer]");
+    let current = 0;
+    let submitting = false;
+
+    const showQuestion = (index) => {
+        if (index < 0 || index >= cards.length) return;
+        cards.forEach((card, cardIndex) => {
+            card.hidden = cardIndex !== index;
+        });
+        paletteButtons.forEach((button, buttonIndex) => {
+            button.classList.toggle("is-current", buttonIndex === index);
+            if (buttonIndex === index) button.setAttribute("aria-current", "step");
+            else button.removeAttribute("aria-current");
+        });
+        current = index;
+        previous.disabled = current === 0;
+        next.disabled = current === cards.length - 1;
+        cards[current]?.querySelector("input")?.focus({preventScroll: true});
+    };
+
+    previous?.addEventListener("click", () => showQuestion(current - 1));
+    next?.addEventListener("click", () => showQuestion(current + 1));
+    paletteButtons.forEach((button, index) => button.addEventListener("click", () => showQuestion(index)));
+    examApp.querySelectorAll('input[type="radio"]').forEach((radio) => {
+        radio.addEventListener("change", () => {
+            const card = radio.closest("[data-question]");
+            const index = cards.indexOf(card);
+            paletteButtons[index]?.classList.add("is-answered");
+        });
+    });
+
+    form?.addEventListener("submit", (event) => {
+        if (submitting) return;
+        if (!window.confirm("Submit this exam? You cannot change your answers afterward.")) {
+            event.preventDefault();
+            return;
+        }
+        submitting = true;
+    });
+
+    const durationSeconds = Number(timer?.dataset.minutes || 0) * 60;
+    const deadline = Date.now() + durationSeconds * 1000;
+    const updateTimer = () => {
+        const remaining = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+        const minutes = Math.floor(remaining / 60).toString().padStart(2, "0");
+        const seconds = (remaining % 60).toString().padStart(2, "0");
+        timer.textContent = `${minutes}:${seconds}`;
+        timer.classList.toggle("is-urgent", remaining <= 300);
+        if (remaining === 0) {
+            submitting = true;
+            form?.requestSubmit();
+            return;
+        }
+        window.setTimeout(updateTimer, 250);
+    };
+
+    showQuestion(0);
+    updateTimer();
+});

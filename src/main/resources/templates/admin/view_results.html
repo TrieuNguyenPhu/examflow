@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Exam results')}"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><header th:replace="~{fragments :: header}"></header>
+<main id="main" class="page-shell">
+    <div class="page-heading"><div class="page-heading-copy"><h1 th:text="|Results for ${exam.title}.|">Exam results.</h1><p>Submissions are ordered from newest to oldest.</p></div><a class="button button-secondary" th:href="@{/admin/manage-exams}">Back to exams</a></div>
+    <section class="panel"><div class="table-scroll"><table>
+        <thead><tr><th>Student</th><th>Email</th><th>Score</th><th>Submitted</th></tr></thead>
+        <tbody>
+            <tr th:if="${#lists.isEmpty(results)}"><td colspan="4"><div class="empty-state"><strong>No submissions yet</strong>Results appear after a student completes this exam.</div></td></tr>
+            <tr th:each="result : ${results}"><td class="list-title" th:text="${result.student.fullName}">Student</td><td th:text="${result.student.username}">Email</td><td><span class="score-value" th:text="|${result.scoreAchieved}/${result.totalMarks}|">0/0</span></td><td th:text="${#temporals.format(result.submissionTime, 'MMM d, yyyy HH:mm')}">Date</td></tr>
+        </tbody>
+    </table></div></section>
+</main></body></html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Admin overview')}"></head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header th:replace="~{fragments :: header}"></header>
+<main id="main" class="page-shell">
+    <div class="page-heading">
+        <div class="page-heading-copy">
+            <h1>Assessment overview.</h1>
+            <p>Monitor activity and move directly into the work that needs attention.</p>
+        </div>
+        <a class="button" th:href="@{/admin/exam/add}">Create exam</a>
+    </div>
+    <div th:replace="~{fragments :: messages}"></div>
+    <section class="metrics-strip" aria-label="Platform totals">
+        <div class="metric"><span class="metric-value" th:text="${totalStudents}">0</span><span class="metric-label">Students</span></div>
+        <div class="metric"><span class="metric-value" th:text="${totalExams}">0</span><span class="metric-label">Exams</span></div>
+        <div class="metric"><span class="metric-value" th:text="${totalQuestions}">0</span><span class="metric-label">Questions</span></div>
+        <div class="metric"><span class="metric-value" th:text="${totalSubmissions}">0</span><span class="metric-label">Submissions</span></div>
+    </section>
+    <div class="dashboard-grid">
+        <section class="panel">
+            <div class="panel-header"><h2>Recent submissions</h2><a th:href="@{/admin/manage-exams}">View exams</a></div>
+            <div class="panel-body">
+                <div class="empty-state" th:if="${#lists.isEmpty(recentResults)}"><strong>No submissions yet</strong>Completed exams will appear here.</div>
+                <ul class="list" th:unless="${#lists.isEmpty(recentResults)}">
+                    <li class="list-row" th:each="result : ${recentResults}">
+                        <span class="list-main">
+                            <span class="list-title" th:text="${result.student.fullName}">Student</span>
+                            <span class="list-meta" th:text="|${result.exam.title} · ${#temporals.format(result.submissionTime, 'MMM d, yyyy HH:mm')}|">Exam</span>
+                        </span>
+                        <span class="score-value" th:text="|${result.scoreAchieved}/${result.totalMarks}|">0/0</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="panel">
+            <div class="panel-header"><h2>Submissions by exam</h2></div>
+            <div class="panel-body">
+                <div class="empty-state" th:if="${#lists.isEmpty(submissionSummaries)}"><strong>No exams yet</strong>Create an exam to begin.</div>
+                <ul class="list" th:unless="${#lists.isEmpty(submissionSummaries)}">
+                    <li class="list-row" th:each="summary : ${submissionSummaries}">
+                        <span class="list-title" th:text="${summary.title}">Exam</span>
+                        <span class="status" th:text="|${summary.submissions} submitted|">0 submitted</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</main>
+</body>
+</html>

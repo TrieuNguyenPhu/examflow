@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Student dashboard')}"></head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header th:replace="~{fragments :: header}"></header>
+<main id="main" class="page-shell">
+    <div class="page-heading">
+        <div class="cluster">
+            <img th:if="${student.profilePicUrl}" th:src="@{${student.profilePicUrl}}" alt="" class="avatar">
+            <span th:unless="${student.profilePicUrl}" class="avatar avatar-fallback" aria-hidden="true">EF</span>
+            <div class="page-heading-copy"><h1 th:text="|Welcome back, ${student.fullName}.|">Welcome back.</h1><p>Choose your next exam or review recent progress.</p></div>
+        </div>
+    </div>
+    <div th:replace="~{fragments :: messages}"></div>
+    <section class="metrics-strip stats-trio" aria-label="Performance summary">
+        <div class="metric"><span class="metric-value" th:text="${totalTaken}">0</span><span class="metric-label">Exams completed</span></div>
+        <div class="metric"><span class="metric-value" th:text="${#numbers.formatDecimal(averageScore, 1, 1) + '%'}">0.0%</span><span class="metric-label">Weighted average</span></div>
+        <div class="metric"><span class="metric-value" th:text="${highestScore + '%'}">0%</span><span class="metric-label">Highest result</span></div>
+    </section>
+    <div class="dashboard-grid">
+        <div class="stack-large">
+            <section class="panel">
+                <div class="panel-header"><h2>Available exams</h2></div>
+                <div class="panel-body">
+                    <div class="empty-state" th:if="${#lists.isEmpty(availableExams)}"><strong>You are up to date</strong>No new exams are available right now.</div>
+                    <ul class="list" th:unless="${#lists.isEmpty(availableExams)}">
+                        <li class="list-row" th:each="exam : ${availableExams}">
+                            <span class="list-main"><span class="list-title" th:text="${exam.title}">Exam</span><span class="list-meta" th:text="|${exam.durationInMinutes} minutes · ${#lists.size(exam.questions)} questions|">60 minutes</span><span class="list-meta" th:if="${exam.description}" th:text="${exam.description}">Description</span></span>
+                            <a class="button button-small" th:href="@{/exam/{id}(id=${exam.id})}">Start exam</a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <section class="panel">
+                <div class="panel-header"><h2>Recent results</h2><a th:href="@{/student/my-results}">View all</a></div>
+                <div class="table-scroll"><table>
+                    <thead><tr><th>Exam</th><th>Score</th><th>Result</th><th></th></tr></thead>
+                    <tbody>
+                        <tr th:if="${#lists.isEmpty(pastResults)}"><td colspan="4"><div class="empty-state"><strong>No results yet</strong>Your completed exams will appear here.</div></td></tr>
+                        <tr th:each="result : ${pastResults}"><td><span class="list-title" th:text="${result.exam.title}">Exam</span><span class="list-meta" th:text="${#temporals.format(result.submissionTime, 'MMM d, yyyy')}">Date</span></td><td th:text="|${result.scoreAchieved}/${result.totalMarks}|">0/0</td><td><span class="status" th:text="${result.totalMarks == 0 ? '0%' : #numbers.formatDecimal(result.scoreAchieved * 100.0 / result.totalMarks, 1, 0) + '%'}">0%</span></td><td><a th:href="@{/student/review/{id}(id=${result.id})}">Review</a></td></tr>
+                    </tbody>
+                </table></div>
+            </section>
+        </div>
+        <section class="panel">
+            <div class="panel-header"><h2>Progress over time</h2></div>
+            <div class="panel-body">
+                <div class="empty-state" th:if="${#lists.isEmpty(chartResults)}"><strong>No progress data</strong>Complete an exam to start tracking scores.</div>
+                <ul class="list" th:unless="${#lists.isEmpty(chartResults)}">
+                    <li class="list-row" th:each="result : ${chartResults}"><span class="list-main"><span class="list-title" th:text="${result.exam.title}">Exam</span><meter min="0" max="100" th:value="${result.totalMarks == 0 ? 0 : result.scoreAchieved * 100.0 / result.totalMarks}"></meter></span><span class="score-value" th:text="${result.totalMarks == 0 ? '0%' : #numbers.formatDecimal(result.scoreAchieved * 100.0 / result.totalMarks, 1, 0) + '%'}">0%</span></li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</main>
+</body>
+</html>

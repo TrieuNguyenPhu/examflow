@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Review exam')}"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><header th:replace="~{fragments :: header}"></header>
+<main id="main" class="page-shell narrow">
+    <div class="page-heading"><div class="page-heading-copy"><h1 th:text="|Review ${exam.title}.|">Review exam.</h1><p th:text="|You earned ${result.scoreAchieved} of ${result.totalMarks} marks.|">Score</p></div><a class="button button-secondary" th:href="@{/student/my-results}">Back to results</a></div>
+    <section class="panel"><div class="panel-body">
+        <article class="review-question" th:each="question, iter : ${questions}">
+            <span class="question-number" th:text="|Question ${iter.count} · ${question.marks} ${question.marks == 1 ? 'mark' : 'marks'}|">Question</span>
+            <h2 class="question-text" th:text="${question.text}">Question</h2>
+            <div class="review-options">
+                <div class="review-option" th:classappend="${question.correctAnswer == 1 ? 'correct' : (studentAnswers[question.id] == 1 ? 'incorrect' : '')}" th:text="|1. ${question.option1}${question.correctAnswer == 1 ? ' — Correct answer' : (studentAnswers[question.id] == 1 ? ' — Your answer' : '')}|">Option</div>
+                <div class="review-option" th:classappend="${question.correctAnswer == 2 ? 'correct' : (studentAnswers[question.id] == 2 ? 'incorrect' : '')}" th:text="|2. ${question.option2}${question.correctAnswer == 2 ? ' — Correct answer' : (studentAnswers[question.id] == 2 ? ' — Your answer' : '')}|">Option</div>
+                <div class="review-option" th:classappend="${question.correctAnswer == 3 ? 'correct' : (studentAnswers[question.id] == 3 ? 'incorrect' : '')}" th:text="|3. ${question.option3}${question.correctAnswer == 3 ? ' — Correct answer' : (studentAnswers[question.id] == 3 ? ' — Your answer' : '')}|">Option</div>
+                <div class="review-option" th:classappend="${question.correctAnswer == 4 ? 'correct' : (studentAnswers[question.id] == 4 ? 'incorrect' : '')}" th:text="|4. ${question.option4}${question.correctAnswer == 4 ? ' — Correct answer' : (studentAnswers[question.id] == 4 ? ' — Your answer' : '')}|">Option</div>
+                <p class="muted small" th:if="${studentAnswers[question.id] == null or studentAnswers[question.id] == 0}">You did not answer this question.</p>
+            </div>
+        </article>
+    </div></section>
+</main></body></html>

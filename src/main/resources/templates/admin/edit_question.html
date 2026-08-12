@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Edit question')}"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><header th:replace="~{fragments :: header}"></header>
+<main id="main" class="page-shell narrow">
+    <div class="page-heading"><div class="page-heading-copy"><h1>Edit question.</h1><p th:text="|Update this question in ${question.exam.title}.|">Update this question.</p></div></div>
+    <section class="panel"><div class="panel-body">
+        <form class="form-grid" th:action="@{/admin/question/update/{id}(id=${question.id})}" th:object="${question}" method="post">
+            <div class="field field-full"><label for="text">Question</label><textarea id="text" th:field="*{text}" maxlength="1024" required></textarea><span class="field-error" th:errors="*{text}"></span></div>
+            <div class="field"><label for="option1">Option 1</label><input id="option1" th:field="*{option1}" maxlength="500" required></div>
+            <div class="field"><label for="option2">Option 2</label><input id="option2" th:field="*{option2}" maxlength="500" required></div>
+            <div class="field"><label for="option3">Option 3</label><input id="option3" th:field="*{option3}" maxlength="500" required></div>
+            <div class="field"><label for="option4">Option 4</label><input id="option4" th:field="*{option4}" maxlength="500" required></div>
+            <div class="field"><label for="correctAnswer">Correct option</label><select id="correctAnswer" th:field="*{correctAnswer}" required><option value="1">Option 1</option><option value="2">Option 2</option><option value="3">Option 3</option><option value="4">Option 4</option></select></div>
+            <div class="field"><label for="marks">Marks</label><input id="marks" type="number" th:field="*{marks}" min="1" max="100" required></div>
+            <div class="form-actions field-full"><button class="button" type="submit">Save changes</button><a class="button button-secondary" th:href="@{/admin/exam/manage-questions/{id}(id=${question.exam.id})}">Cancel</a></div>
+        </form>
+    </div></section>
+</main></body></html>

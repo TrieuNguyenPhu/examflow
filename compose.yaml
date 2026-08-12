@@ -1,0 +1,17 @@
+services:
+  examflow:
+    build: .
+    ports:
+      - "7890:7890"
+    environment:
+      APP_ADMIN_USERNAME: ${APP_ADMIN_USERNAME:?Set APP_ADMIN_USERNAME}
+      APP_ADMIN_PASSWORD: ${APP_ADMIN_PASSWORD:?Set APP_ADMIN_PASSWORD}
+      APP_ADMIN_NAME: ${APP_ADMIN_NAME:-Administrator}
+    volumes:
+      - examflow-data:/app/data
+      - examflow-uploads:/app/uploads
+    restart: unless-stopped
+
+volumes:
+  examflow-data:
+  examflow-uploads:

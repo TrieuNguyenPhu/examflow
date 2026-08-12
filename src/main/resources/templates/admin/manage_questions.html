@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Manage questions')}"></head>
+<body><a class="skip-link" href="#main">Skip to content</a><header th:replace="~{fragments :: header}"></header>
+<main id="main" class="page-shell">
+    <div class="page-heading"><div class="page-heading-copy"><h1 th:text="${exam.title}">Exam</h1><p th:text="|${exam.durationInMinutes} minutes · ${#lists.size(questions)} questions|">Question set</p></div><a class="button" th:href="@{/admin/exam/{id}/question/add(id=${exam.id})}">Add question</a></div>
+    <div th:replace="~{fragments :: messages}"></div>
+    <section class="panel"><div class="table-scroll"><table>
+        <thead><tr><th>Question</th><th>Answer</th><th>Marks</th><th>Actions</th></tr></thead>
+        <tbody>
+            <tr th:if="${#lists.isEmpty(questions)}"><td colspan="4"><div class="empty-state"><strong>No questions yet</strong>Add at least one question before students take this exam.</div></td></tr>
+            <tr th:each="question, iter : ${questions}">
+                <td><span class="list-title" th:text="|${iter.count}. ${question.text}|">Question</span></td>
+                <td th:text="|Option ${question.correctAnswer}|">Option 1</td><td th:text="${question.marks}">1</td>
+                <td><div class="table-actions"><a class="button button-secondary button-small" th:href="@{/admin/question/edit/{id}(id=${question.id})}">Edit</a><form th:action="@{/admin/exam/{examId}/question/delete/{questionId}(examId=${exam.id},questionId=${question.id})}" method="post" data-confirm="Delete this question? This cannot be undone."><button class="button button-danger button-small" type="submit">Delete</button></form></div></td>
+            </tr>
+        </tbody>
+    </table></div></section>
+    <div class="form-actions"><a class="button button-secondary" th:href="@{/admin/manage-exams}">Back to exams</a></div>
+</main></body></html>
