@@ -25,6 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const previous = examApp.querySelector("[data-question-previous]");
     const next = examApp.querySelector("[data-question-next]");
     const timer = examApp.querySelector("[data-exam-timer]");
+    const answerProgress = examApp.querySelector("[data-answer-progress]");
+    const answeredCountLabel = examApp.querySelector("[data-answered-count]");
+    const progressPercentLabel = examApp.querySelector("[data-progress-percent]");
     const examId = form?.querySelector('input[name="examId"]')?.value;
     const deadline = Number(timer?.dataset.deadline || 0);
     const draftKey = `examflow:draft:${examId}`;
@@ -80,6 +83,14 @@ document.addEventListener("DOMContentLoaded", () => {
     previous?.addEventListener("click", () => showQuestion(current - 1));
     next?.addEventListener("click", () => showQuestion(current + 1));
     paletteButtons.forEach((button, index) => button.addEventListener("click", () => showQuestion(index)));
+    const answeredCount = () => cards.filter((card) => card.querySelector('input[type="radio"]:checked')).length;
+    const updateAnswerProgress = () => {
+        const answered = answeredCount();
+        const percent = cards.length === 0 ? 0 : Math.round(answered * 100 / cards.length);
+        if (answerProgress) answerProgress.value = answered;
+        if (answeredCountLabel) answeredCountLabel.textContent = `${answered} of ${cards.length} answered`;
+        if (progressPercentLabel) progressPercentLabel.textContent = `${percent}%`;
+    };
     examApp.querySelectorAll('input[type="radio"]').forEach((radio) => {
         const card = radio.closest("[data-question]");
         const index = cards.indexOf(card);
@@ -90,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
         radio.addEventListener("change", () => {
             paletteButtons[index]?.classList.add("is-answered");
             hasAnswers = true;
+            updateAnswerProgress();
             const answers = {};
             examApp.querySelectorAll('input[type="radio"]:checked').forEach((answer) => {
                 answers[answer.name] = answer.value;
@@ -97,9 +109,14 @@ document.addEventListener("DOMContentLoaded", () => {
             draftStorage.set(JSON.stringify({deadline, answers}));
         });
     });
+    updateAnswerProgress();
 
     form?.addEventListener("submit", (event) => {
-        if (!submitting && !window.confirm("Submit this exam? You cannot change your answers afterward.")) {
+        const unanswered = cards.length - answeredCount();
+        const message = unanswered > 0
+            ? `${unanswered} ${unanswered === 1 ? "question is" : "questions are"} unanswered. Submit anyway? You cannot change your answers afterward.`
+            : "Submit this exam? You cannot change your answers afterward.";
+        if (!submitting && !window.confirm(message)) {
             event.preventDefault();
             return;
         }

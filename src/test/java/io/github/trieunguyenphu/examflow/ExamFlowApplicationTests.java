@@ -111,12 +111,15 @@ class ExamFlowApplicationTests {
         mvc.perform(get("/admin/students").with(admin)).andExpect(status().isOk());
 
         var studentAuth = user(student.getUsername()).roles("STUDENT");
-        mvc.perform(get("/student/dashboard").with(studentAuth)).andExpect(status().isOk());
+        mvc.perform(get("/student/dashboard").with(studentAuth))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("exam-card-grid")));
         mvc.perform(get("/student/my-results").with(studentAuth)).andExpect(status().isOk());
         mvc.perform(get("/student/profile").with(studentAuth)).andExpect(status().isOk());
         mvc.perform(get("/exam/{id}", exam.getId()).with(studentAuth))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("data-deadline=\"")));
+                .andExpect(content().string(containsString("data-deadline=\"")))
+                .andExpect(content().string(containsString("data-answer-progress")));
     }
 
     @Test
