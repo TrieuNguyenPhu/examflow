@@ -11,7 +11,7 @@
             <tr th:if="${#lists.isEmpty(exams)}"><td colspan="4"><div class="empty-state"><strong>No exams yet</strong>Create your first exam to begin adding questions.</div></td></tr>
             <tr th:each="exam : ${exams}">
                 <td data-label="Exam"><span class="list-title" th:text="${exam.title}">Exam</span><span class="list-meta" th:if="${exam.description}" th:text="${exam.description}">Description</span></td>
-                <td data-label="Duration" th:text="|${exam.durationInMinutes} min|">60 min</td><td data-label="Questions" th:text="${#lists.size(exam.questions)}">0</td>
+                <td data-label="Duration" th:text="|${exam.durationInMinutes} min|">60 min</td><td data-label="Questions" th:text="${exam.questionCount}">0</td>
                 <td data-label="Actions"><div class="table-actions">
                     <a class="button button-small" th:href="@{/admin/exam/manage-questions/{id}(id=${exam.id})}">Questions</a>
                     <a class="button button-secondary button-small" th:href="@{/admin/results/{id}(id=${exam.id})}">Results</a>
