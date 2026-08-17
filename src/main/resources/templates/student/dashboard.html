@@ -9,7 +9,7 @@
         <div class="cluster">
             <img th:if="${student.profilePicUrl}" th:src="@{${student.profilePicUrl}}" alt="" class="avatar">
             <span th:unless="${student.profilePicUrl}" class="avatar avatar-fallback" aria-hidden="true">EF</span>
-            <div class="page-heading-copy"><h1 th:text="|Welcome back, ${student.fullName}.|">Welcome back.</h1><p>Choose your next exam or review recent progress.</p></div>
+            <div class="page-heading-copy"><span class="eyebrow">Student workspace</span><h1 th:text="|Welcome back, ${student.fullName}.|">Welcome back.</h1><p>Choose your next exam or review recent progress.</p></div>
         </div>
     </div>
     <div th:replace="~{fragments :: messages}"></div>
@@ -24,12 +24,13 @@
                 <div class="panel-header"><h2>Available exams</h2></div>
                 <div class="panel-body">
                     <div class="empty-state" th:if="${#lists.isEmpty(availableExams)}"><strong>You are up to date</strong>No new exams are available right now.</div>
-                    <ul class="list" th:unless="${#lists.isEmpty(availableExams)}">
-                        <li class="list-row" th:each="exam : ${availableExams}">
-                            <span class="list-main"><span class="list-title" th:text="${exam.title}">Exam</span><span class="list-meta" th:text="|${exam.durationInMinutes} minutes · ${exam.questionCount} questions|">60 minutes</span><span class="list-meta" th:if="${exam.description}" th:text="${exam.description}">Description</span></span>
-                            <a class="button button-small" th:href="@{/exam/{id}(id=${exam.id})}">Start exam</a>
-                        </li>
-                    </ul>
+                    <div class="exam-card-grid" th:unless="${#lists.isEmpty(availableExams)}">
+                        <article class="exam-card" th:each="exam : ${availableExams}">
+                            <div class="exam-card-top"><span class="status status-ready">Ready to start</span><span class="exam-card-meta" th:text="|${exam.durationInMinutes} min|">60 min</span></div>
+                            <div class="exam-card-copy"><h3 th:text="${exam.title}">Exam</h3><p th:if="${exam.description}" th:text="${exam.description}">Description</p><p th:unless="${exam.description}" class="muted">Open the assessment to review its question set.</p></div>
+                            <div class="exam-card-footer"><span class="exam-card-count" th:text="|${exam.questionCount} ${exam.questionCount == 1 ? 'question' : 'questions'}|">10 questions</span><a class="button button-small" th:href="@{/exam/{id}(id=${exam.id})}">Start exam</a></div>
+                        </article>
+                    </div>
                 </div>
             </section>
             <section class="panel">

@@ -29,6 +29,10 @@
     <aside class="exam-sidebar" aria-label="Question navigator">
         <h2>Questions</h2>
         <p class="muted small">Move between questions in any order.</p>
+        <div class="answer-progress">
+            <div class="answer-progress-label"><span data-answered-count aria-live="polite">0 of 0 answered</span><span data-progress-percent>0%</span></div>
+            <progress data-answer-progress th:max="${#lists.size(questions)}" value="0" aria-label="Questions answered">0%</progress>
+        </div>
         <div class="palette"><button class="palette-button" type="button" th:each="question, iter : ${questions}" th:text="${iter.count}" th:attr="aria-label=|Go to question ${iter.count}|" data-question-jump>1</button></div>
         <div class="legend"><span><span class="legend-dot"></span>Not answered</span><span><span class="legend-dot answered"></span>Answered</span></div>
         <button class="button button-wide" type="submit" form="exam-form">Submit exam</button>
