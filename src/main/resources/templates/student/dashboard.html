@@ -26,7 +26,7 @@
                     <div class="empty-state" th:if="${#lists.isEmpty(availableExams)}"><strong>You are up to date</strong>No new exams are available right now.</div>
                     <ul class="list" th:unless="${#lists.isEmpty(availableExams)}">
                         <li class="list-row" th:each="exam : ${availableExams}">
-                            <span class="list-main"><span class="list-title" th:text="${exam.title}">Exam</span><span class="list-meta" th:text="|${exam.durationInMinutes} minutes · ${#lists.size(exam.questions)} questions|">60 minutes</span><span class="list-meta" th:if="${exam.description}" th:text="${exam.description}">Description</span></span>
+                            <span class="list-main"><span class="list-title" th:text="${exam.title}">Exam</span><span class="list-meta" th:text="|${exam.durationInMinutes} minutes · ${exam.questionCount} questions|">60 minutes</span><span class="list-meta" th:if="${exam.description}" th:text="${exam.description}">Description</span></span>
                             <a class="button button-small" th:href="@{/exam/{id}(id=${exam.id})}">Start exam</a>
                         </li>
                     </ul>

@@ -68,7 +68,7 @@ public class AdminController {
 
     @GetMapping("/manage-exams")
     public String manageExams(Model model) {
-        model.addAttribute("exams", exams.findAllWithQuestions());
+        model.addAttribute("exams", exams.summarizeExams());
         return "admin/manage_exams";
     }
 

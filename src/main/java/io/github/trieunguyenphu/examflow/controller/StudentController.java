@@ -1,6 +1,5 @@
 package io.github.trieunguyenphu.examflow.controller;
 
-import io.github.trieunguyenphu.examflow.model.Exam;
 import io.github.trieunguyenphu.examflow.model.ExamResult;
 import io.github.trieunguyenphu.examflow.model.User;
 import io.github.trieunguyenphu.examflow.repository.ExamRepository;
@@ -23,9 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 @Controller
@@ -64,19 +61,13 @@ public class StudentController {
 
         List<ExamResult> chartResults = new ArrayList<>(pastResults);
         Collections.reverse(chartResults);
-        Set<Long> takenExamIds = new HashSet<>();
-        pastResults.forEach(result -> takenExamIds.add(result.getExam().getId()));
-        List<Exam> availableExams = exams.findAllWithQuestions().stream()
-                .filter(exam -> !takenExamIds.contains(exam.getId()))
-                .toList();
-
         model.addAttribute("student", student);
         model.addAttribute("pastResults", pastResults);
         model.addAttribute("totalTaken", pastResults.size());
         model.addAttribute("averageScore", averageScore);
         model.addAttribute("highestScore", highestScore);
         model.addAttribute("chartResults", chartResults);
-        model.addAttribute("availableExams", availableExams);
+        model.addAttribute("availableExams", exams.findAvailableForStudent(student.getId()));
         return "student/dashboard";
     }
 

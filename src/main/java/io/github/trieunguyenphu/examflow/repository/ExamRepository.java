@@ -19,6 +19,34 @@ public interface ExamRepository extends JpaRepository<Exam, Long> {
     Optional<Exam> findWithQuestionsById(Long id);
 
     @Query("""
+            select e.id as id,
+                   e.title as title,
+                   e.description as description,
+                   e.durationInMinutes as durationInMinutes,
+                   count(q.id) as questionCount
+            from Exam e left join e.questions q
+            group by e.id, e.title, e.description, e.durationInMinutes
+            order by e.title
+            """)
+    List<ExamSummary> summarizeExams();
+
+    @Query("""
+            select e.id as id,
+                   e.title as title,
+                   e.description as description,
+                   e.durationInMinutes as durationInMinutes,
+                   count(q.id) as questionCount
+            from Exam e left join e.questions q
+            where not exists (
+                select r.id from ExamResult r
+                where r.exam = e and r.student.id = :studentId
+            )
+            group by e.id, e.title, e.description, e.durationInMinutes
+            order by e.title
+            """)
+    List<ExamSummary> findAvailableForStudent(Long studentId);
+
+    @Query("""
             select e.title as title, count(r.id) as submissions
             from Exam e left join e.results r
             group by e.id, e.title
@@ -29,5 +57,13 @@ public interface ExamRepository extends JpaRepository<Exam, Long> {
     interface ExamSubmissionSummary {
         String getTitle();
         long getSubmissions();
+    }
+
+    interface ExamSummary {
+        Long getId();
+        String getTitle();
+        String getDescription();
+        int getDurationInMinutes();
+        long getQuestionCount();
     }
 }
