@@ -53,6 +53,24 @@ export APP_ADMIN_NAME='Administrator'
 
 Open <http://localhost:7890>. The bootstrap variables are only used to create the administrator when that username does not already exist.
 
+### Demo workspace
+
+For a clean local workspace with programming and DevOps assessments, run the isolated `demo` profile:
+
+```powershell
+$env:SPRING_PROFILES_ACTIVE='demo'
+.\mvnw.cmd spring-boot:run
+```
+
+It creates five technical exams with 30 questions in `data/examflow-demo` and leaves the default database untouched. The seed is idempotent, so restarting does not duplicate data.
+
+| Role | Email | Password |
+| --- | --- | --- |
+| Administrator | `admin@examflow.local` | `ExamFlowDemo2026` |
+| Student | `trieu@examflow.local` | `ExamFlowDemo2026` |
+
+The credentials are for local demo use only. Never enable the `demo` profile in a deployed environment. To reset or roll back the demo data, stop the application and remove only the `data/examflow-demo` database files.
+
 ### Configuration
 
 Copy [`.env.example`](.env.example) as a reference. Important variables:

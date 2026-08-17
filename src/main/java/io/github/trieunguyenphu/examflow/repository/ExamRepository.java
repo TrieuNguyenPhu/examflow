@@ -10,6 +10,8 @@ import java.util.Optional;
 
 public interface ExamRepository extends JpaRepository<Exam, Long> {
 
+    boolean existsByTitleIgnoreCase(String title);
+
     @EntityGraph(attributePaths = "questions")
     @Query("select distinct e from Exam e order by e.title")
     List<Exam> findAllWithQuestions();
